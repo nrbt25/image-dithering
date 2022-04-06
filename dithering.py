@@ -4,6 +4,7 @@ from time import time
 import sys
 from Color import Color
 from utils import *
+from os import mkdir
 
 # colors = [
 #     Color(0, 0, 0),
@@ -88,7 +89,13 @@ def render(image: Image):
                 draw.point((x+1, y+1), (temp_color.r,
                            temp_color.g, temp_color.b))
 
-    image.save("./out/" + str(time()) + ".png")
+    try:
+        image.save("./out/" + str(time()) + ".png")
+
+    except FileNotFoundError:
+        print("Out folder not found, creating it...")
+        mkdir("./out")
+        image.save("./out/" + str(time()) + ".png")
 
 
 def nearest_color(old_color: Color):
